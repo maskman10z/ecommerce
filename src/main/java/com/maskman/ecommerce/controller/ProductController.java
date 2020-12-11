@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import com.maskman.ecommerce.model.Product;
 import com.maskman.ecommerce.service.ProductService;
 
@@ -42,13 +44,13 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Product create(@RequestBody Product product) {
+    public Product create(@Valid @RequestBody Product product) {
 
         return productService.save(product);
     }
 
     @PutMapping(value = "/{id}")
-    public Product update(@PathVariable("id") Long id, @RequestBody Product product) { // should return 201 if created a new, currently 200
+    public Product update(@PathVariable("id") Long id, @Valid @RequestBody Product product) { // should return 201 if created a new, currently 200
 
         product.setId(id);
         return productService.save(product);
